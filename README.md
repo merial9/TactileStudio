@@ -1,2 +1,2 @@
-# TactileStudio
+# Tactile Studio
 
