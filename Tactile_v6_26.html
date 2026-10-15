@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tactile Pixel Studio V6.24</title>
+<title>Tactile Pixel Studio V6.26</title>
 <style>
 /* ============ THEMES ============
    3 themes: Obsidian, Synthwave, Bryce */
@@ -544,6 +544,10 @@ input[type=range]::-moz-range-thumb{
 .canvas-well.xh-on.cur-move:not(.space-pan):not(.panning) #editor{cursor:move}
 .canvas-well.xh-on.cur-rotate:not(.space-pan):not(.panning) #editor{cursor:grab}
 .canvas-well.xh-on.cur-locked:not(.space-pan):not(.panning) #editor{cursor:not-allowed}
+.canvas-well.xh-on.cur-rs-ns:not(.space-pan):not(.panning) #editor{cursor:ns-resize}
+.canvas-well.xh-on.cur-rs-ew:not(.space-pan):not(.panning) #editor{cursor:ew-resize}
+.canvas-well.xh-on.cur-rs-nwse:not(.space-pan):not(.panning) #editor{cursor:nwse-resize}
+.canvas-well.xh-on.cur-rs-nesw:not(.space-pan):not(.panning) #editor{cursor:nesw-resize}
 
 /* FAVORITE FOLDERS */
 .fav-body{display:flex;gap:10px;height:min(480px,62vh);min-height:0}
@@ -1395,7 +1399,7 @@ body.rc-open #studioCanvasWell #editor{cursor:crosshair}
       </button>
       <div style="width:24px;height:1px;background:var(--hairline);margin:2px 0"></div>
       <button class="tool" data-tool="select" title="Marquee Selection (M / Shift+M / Q)">
-        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1" stroke-dasharray="3 3"/></svg>
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="14" height="14" rx="1" stroke-dasharray="3 2.5"/><path d="M13 13l8 3-3.5 1.5L16 21z" fill="currentColor" stroke-width="1.2"/></svg>
       </button>
       <button class="tool" data-tool="move" title="Move Tool (V) - drags the selection, or the whole layer when nothing is selected">
         <svg class="icon" viewBox="0 0 24 24"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
@@ -1408,19 +1412,21 @@ body.rc-open #studioCanvasWell #editor{cursor:crosshair}
         <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="1"/></svg>
       </button>
       <button class="tool" data-tool="shape" title="More Shapes: Ellipse (Shift+U) / Polygon (P)">
-        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+        <svg class="icon" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="6"/></svg>
       </button>
       <div style="width:24px;height:1px;background:var(--hairline);margin:2px 0"></div>
       <button class="tool" data-tool="blur" title="Blur Tool (O) - softens colors under the brush">
         <svg class="icon" viewBox="0 0 24 24"><path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.4 0z"/></svg>
       </button>
       <button class="tool" data-tool="dither" title="Dither / Shading Tool (D)">
-        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        <svg class="icon" viewBox="0 0 24 24"><g fill="currentColor" stroke="none"><circle cx="5" cy="5" r=".9"/><circle cx="5" cy="12" r=".9"/><circle cx="5" cy="19" r=".9"/><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/><circle cx="19" cy="5" r="2.6"/><circle cx="19" cy="12" r="2.6"/><circle cx="19" cy="19" r="2.6"/></g></svg>
       </button>
       <button class="tool" data-tool="contour" title="Contour Stroke (C)">
-        <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke-dasharray="4 2"/></svg>
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 1.8 22.2 12 12 22.2 1.8 12z" stroke-dasharray="3 2.2"/><path d="M12 7l5 5-5 5-5-5z" fill="currentColor" fill-opacity=".4"/></svg>
       </button>
-      <button class="tool" data-tool="replace" title="Replace Color (R)">R</button>
+      <button class="tool" data-tool="replace" title="Replace Color (R)">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="3.5" fill="currentColor" fill-opacity=".45"/><circle cx="18.5" cy="12" r="3.5"/><path d="M10.5 10h3m0 0-1.4-1.4M13.5 10l-1.4 1.4M13.5 14h-3m0 0 1.4-1.4M10.5 14l1.4 1.4"/></svg>
+      </button>
       <div style="width:24px;height:1px;background:var(--hairline);margin:2px 0"></div>
       <button class="tool" data-tool="hand" title="Hand Pan (H / Spacebar)">
         <svg class="icon" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V2a2 2 0 0 0-4 0v9M18 11a2 2 0 0 1 4 0v5a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7v-3.5"/></svg>
@@ -1927,6 +1933,7 @@ body.rc-open #studioCanvasWell #editor{cursor:crosshair}
  <p>Tactile is a pixel-art studio that runs in your browser. Everything you draw lives on a pixel grid, in layers and frames, and is saved automatically to this browser.</p>
  <h4>The workspace</h4>
  <ul>
+  <li><b>Tool strip</b> icons: each tool has its own shape. The <b>Marquee</b> button shows the selection type you used last (dashed rectangle, dashed ellipse or lasso loop, always with a small arrow), and the <b>More Shapes</b> button shows an ellipse or a polygon. The solid rectangle is the Rectangle tool, the halftone dots are Dither, the diamond with a dashed outline is Contour Stroke, and two circles with arrows are Replace Color.</li>
   <li><b>Menu bar</b> (top): File, Select, Edit, Sprite, Layer, Frame, View, Help. Every menu item is also a command with its own shortcut.</li>
   <li><b>Project tabs</b>: each open sprite is a tab. A dot on a tab means unsaved changes. Use <b>+</b> to start another sprite.</li>
   <li><b>Options bar</b>: settings for the active tool (stroke size, shape, opacity, ink, fill, symmetry, zoom).</li>
@@ -2018,12 +2025,15 @@ body.rc-open #studioCanvasWell #editor{cursor:crosshair}
  <ul>
   <li><kbd>M</kbd> rectangular marquee, <kbd>Shift</kbd>+<kbd>M</kbd> elliptical marquee, <kbd>Q</kbd> freehand lasso.</li>
   <li><kbd>Ctrl</kbd>+<kbd>A</kbd> selects everything, <kbd>Ctrl</kbd>+<kbd>D</kbd> deselects, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd> inverts.</li>
-  <li><b>Combine</b>: hold <kbd>Shift</kbd> while dragging to add, <kbd>Alt</kbd>+<kbd>Shift</kbd> (or right-click drag) to subtract, <kbd>Ctrl</kbd>+<kbd>Shift</kbd> to intersect.</li>
+  <li><b>Combine</b>: hold <kbd>Shift</kbd> while dragging to add, <kbd>Alt</kbd> to subtract, <kbd>Shift</kbd>+<kbd>Alt</kbd> to keep only the intersection.</li>
+  <li><b>Shape</b>: hold <kbd>Shift</kbd> while dragging for a perfect square (or circle), <kbd>Ctrl</kbd> to grow the box outward from the point you clicked.</li>
+  <li><b>Double-click</b> selects the whole grid cell under the pointer (cell size = grid step); <b>right-click</b> removes the selection.</li>
   <li><kbd>Ctrl</kbd>+click a layer to select exactly the pixels it contains.</li>
  </ul>
  <h4>Working with a selection</h4>
  <ul>
   <li><b>Move</b>: drag inside the selection, or use the Move tool (<kbd>V</kbd>). With nothing selected, Move drags the whole layer.</li>
+  <li><b>Resize</b>: drag an edge or corner handle to scale the selected pixels; <kbd>Shift</kbd> keeps the proportions, <kbd>Ctrl</kbd> scales from the center, and dragging past the opposite edge flips the content.</li>
   <li><b>Rotate</b>: drag the round handle above the selection; hold <kbd>Shift</kbd> for 15° steps.</li>
   <li><b>Flip</b>: <kbd>Shift</kbd>+<kbd>H</kbd> horizontal, <kbd>Shift</kbd>+<kbd>V</kbd> vertical (whole layer when nothing is selected).</li>
   <li><b>Cut / Copy / Paste</b>: <kbd>Ctrl</kbd>+<kbd>X</kbd> / <kbd>C</kbd> / <kbd>V</kbd>. After a cut or paste the pixels float and can still be dragged until you click elsewhere.</li>
@@ -2165,6 +2175,8 @@ body.rc-open #studioCanvasWell #editor{cursor:crosshair}
 
 <section class="doc-sec" data-id="trouble" data-title="Troubleshooting & limits">
  <h3>Troubleshooting &amp; limits</h3>
+ <h4>Performance with big sprites</h4>
+ <p>High zoom on a large sprite (for example 900% on 300 × 300 px or more) used to drop to a few frames per second because the selection, symmetry and shape-preview layers were allocated at full screen size, cleared on every repaint and blended over the canvas even when empty. They are now allocated within a fixed pixel budget, hidden while empty, and the symmetry guides are only repainted when they change; the marching ants pause while the tab is hidden. If a very large sprite still feels slow: hide the pixel grid (View), switch symmetry guides off, try Preferences &rarr; Hardware acceleration (<i>On</i> usually helps zoom and pan, <i>Off</i> helps fills and effects), or zoom out a step. Selection outlines may look slightly thicker at extreme zoom, because those layers use fewer pixels than the screen.</p>
  <h4>Limits</h4>
  <ul>
   <li>Canvas size: 1 px to 16,384 px per side (browser limit). Very large canvases use a lot of memory; if the page becomes slow, work at a smaller size.</li>
@@ -2186,6 +2198,9 @@ body.rc-open #studioCanvasWell #editor{cursor:crosshair}
  <h3>About &amp; version history</h3>
  <p><b>Tactile Pixel Studio</b> <span id="docsVer2"></span></p>
  <ul>
+  <li><b>6.26 (marquee)</b>: Alt subtracts and Shift+Alt intersects; Shift locks a square, Ctrl expands from the click point; double-click selects a grid cell, right-click deselects; edge and corner handles resize the selected pixels.</li>
+  <li><b>6.26</b>: unique toolbar icons (no more repeated squares); Marquee and More Shapes buttons show the sub-tool in use.</li>
+  <li><b>6.25</b>: performance at high zoom on large sprites: overlay layers use a fixed pixel budget and are hidden when empty; guides repaint only on change.</li>
   <li><b>6.24</b>: the palette auto-scrolls to center the selected color (optional in Preferences).</li>
   <li><b>6.23</b>: Replace Color redesigned: non-blocking panel, live preview on the canvas and in the preview window, pick colors by clicking the canvas, optional list of colors present in the chosen area.</li>
   <li><b>6.22</b>: desktop integration for the Tactile Desktop kit (Windows .exe): native dialogs, real paths, open-with, GPU switch restart.</li>
@@ -2476,17 +2491,29 @@ function updateGridSize(){
   $("#gridOverlay").style.backgroundSize = `${cellSize()*settings.gridStep}px ${cellSize()*settings.gridStep}px`;
 }
 
+// The selection, guide and shape-preview canvases only carry thin lines, yet they used to be allocated at full screen
+// resolution: a 300 x 300 sprite at 900% zoom meant three 2700 x 2700 canvases (7.3 M pixels each, 29 M on a 2x display),
+// cleared and blended over the sprite on every repaint. They now share a fixed pixel budget; the drawing code works in
+// sprite units (scale = canvas.width / sprite width), so only the line crispness changes, never the geometry.
+const OVERLAY_MAX_PIXELS = 2.5e6, OVERLAY_MAX_SIDE = 4096;
+function overlaySize(displayW, displayH, dpr){
+  const w = displayW * dpr, h = displayH * dpr;
+  const k = Math.min(1, Math.sqrt(OVERLAY_MAX_PIXELS / (w * h)), OVERLAY_MAX_SIDE / Math.max(w, h));
+  return [Math.max(1, Math.round(w * k)), Math.max(1, Math.round(h * k))];
+}
 function fitCanvas(){
   const pr = curProject(), dpr = window.devicePixelRatio || 1, cell = cellSize();
   editor.width = pr.W; editor.height = pr.H;
   const displayW = pr.W * cell, displayH = pr.H * cell;
   editor.style.width = displayW + "px"; editor.style.height = displayH + "px";
   
-  selectionCanvas.width = Math.round(displayW * dpr); selectionCanvas.height = Math.round(displayH * dpr);
+  const [ow, oh] = overlaySize(displayW, displayH, dpr);
+  selectionCanvas.width = ow; selectionCanvas.height = oh;
   selectionCanvas.style.width = displayW + "px"; selectionCanvas.style.height = displayH + "px";
   
-  guidesCanvas.width = Math.round(displayW * dpr); guidesCanvas.height = Math.round(displayH * dpr);
-  shapePreviewCanvas.width = Math.round(displayW * dpr); shapePreviewCanvas.height = Math.round(displayH * dpr);
+  guidesCanvas.width = ow; guidesCanvas.height = oh;
+  shapePreviewCanvas.width = ow; shapePreviewCanvas.height = oh;
+  for(const c of [selectionCanvas, guidesCanvas, shapePreviewCanvas]){ c._drawn = false; c._sig = null; c.style.display = "none"; }   // resizing cleared them; they reappear when something is drawn
   shapePreviewCanvas.style.width = displayW + "px"; shapePreviewCanvas.style.height = displayH + "px";
   guidesCanvas.style.width = displayW + "px"; guidesCanvas.style.height = displayH + "px";
   
@@ -2672,9 +2699,13 @@ function composite(target, frameIndex, includeOnion=true){
 let antsOffset = 0, antsTimer = null;
 function renderSelection(){
   const pr = curProject(), sc = selectionCanvas.width / pr.W, dpr = window.devicePixelRatio || 1, sel = pr.selection;
+  if(!sel){                                                    // nothing selected: clear once, hide the layer, then do nothing per frame
+    if(selectionCanvas._drawn){ sctx.setTransform(1,0,0,1,0,0); sctx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height); selectionCanvas._drawn = false; selectionCanvas.style.display = "none"; }
+    return;
+  }
   sctx.setTransform(1,0,0,1,0,0);
   sctx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
-  if(!sel) return;
+  selectionCanvas._drawn = true; selectionCanvas.style.display = "block";
   if(!sel.outline){
     const o = sel.outline = new Path2D(), {mask:m} = sel, W = pr.W, H = pr.H, on = (x,y) => x>=0 && y>=0 && x<W && y<H && m[y*W+x];
     for(let y=0;y<H;y++) for(let x=0;x<W;x++) if(m[y*W+x]){
@@ -2695,6 +2726,13 @@ function renderSelection(){
     sctx.setLineDash([]); sctx.fillStyle = "#fff";
     sctx.beginPath(); sctx.moveTo(hd.x, Math.max(sel.y, hd.y)); sctx.lineTo(hd.x, hd.y); sctx.stroke();
     sctx.beginPath(); sctx.arc(hd.x, hd.y, 5/hd.k, 0, Math.PI*2); sctx.fill();
+    // resize handles: corners always, edge midpoints when the box is big enough
+    const q = 6/hd.k, x0 = sel.x, x1 = sel.x + sel.w, y0 = sel.y, y1 = sel.y + sel.h, xm = (x0+x1)/2, ym = (y0+y1)/2;
+    const pts = [[x0,y0],[x1,y0],[x0,y1],[x1,y1]];
+    if(sel.w * hd.k >= 28) pts.push([xm,y0],[xm,y1]);
+    if(sel.h * hd.k >= 28) pts.push([x0,ym],[x1,ym]);
+    sctx.fillStyle = "#fff"; sctx.strokeStyle = "#000";
+    pts.forEach(([px,py]) => { sctx.beginPath(); sctx.rect(px - q/2, py - q/2, q, q); sctx.fill(); sctx.stroke(); });
   }
   sctx.setTransform(1,0,0,1,0,0);
 }
@@ -2702,9 +2740,15 @@ function renderSelection(){
 // SYMMETRY GUIDES RENDERING
 function renderSymmetryGuides(){
   const pr = curProject(), dpr = window.devicePixelRatio || 1, sc = guidesCanvas.width / pr.W;
+  if(!settings.symmetryLines || (!pr.symmetryV && !pr.symmetryH)){
+    if(guidesCanvas._drawn){ gctx.setTransform(1,0,0,1,0,0); gctx.clearRect(0,0,guidesCanvas.width,guidesCanvas.height); guidesCanvas._drawn = false; guidesCanvas._sig = null; guidesCanvas.style.display = "none"; }
+    return;
+  }
+  const sig = [guidesCanvas.width, guidesCanvas.height, pr.W, pr.H, pr.symmetryV, pr.symmetryH].join();
+  if(guidesCanvas._drawn && guidesCanvas._sig === sig) return;  // the guides only change with zoom or symmetry: no need to repaint every frame
   gctx.setTransform(1,0,0,1,0,0);
   gctx.clearRect(0,0,guidesCanvas.width,guidesCanvas.height);
-  if(!settings.symmetryLines || (!pr.symmetryV && !pr.symmetryH)) return;
+  guidesCanvas._drawn = true; guidesCanvas._sig = sig; guidesCanvas.style.display = "block";
   
   gctx.setTransform(sc,0,0,sc,0,0);
   gctx.strokeStyle = "#fff";
@@ -3009,11 +3053,14 @@ function drawShape(x0, y0, x1, y1, type, isRightClick = false){
 }
 
 function clearShapePreview(){
+  if(!shapePreviewCanvas._drawn) return;                      // already empty: skip the full-size clear
   shctx.setTransform(1,0,0,1,0,0); shctx.clearRect(0,0,shapePreviewCanvas.width,shapePreviewCanvas.height);
+  shapePreviewCanvas._drawn = false; shapePreviewCanvas.style.display = "none";
 }
 function renderShapePreview(x,y){
   const pr=curProject(), dpr=window.devicePixelRatio||1, sc=shapePreviewCanvas.width/pr.W;
   clearShapePreview();
+  shapePreviewCanvas._drawn = true; shapePreviewCanvas.style.display = "block";
   shctx.setTransform(sc,0,0,sc,0,0); shctx.strokeStyle="#fff"; shctx.fillStyle="#fff";
   shctx.lineWidth=Math.max(1,dpr)/sc; shctx.setLineDash([2/sc,2/sc]);
   if((state.tool==="line"||state.tool==="rect"||state.tool==="ellipse") && shapeStart){
@@ -3127,6 +3174,7 @@ setupCanvasInteraction($("#studioCanvasWell"));
 
 // EDITOR CANVAS DRAWING
 let selDrag = null, outClicks = 0;
+let rs = null, lastSelClick = null;   // rs: edge/corner resize in progress; lastSelClick: previous marquee click (for double-click)
 editor.addEventListener("pointerdown", e => {
   if(e.button === 1 || spacePressed || state.tool === "hand") return;
   const isRight = e.button === 2;
@@ -3149,12 +3197,19 @@ editor.addEventListener("pointerdown", e => {
   
   // Selection tools
   if(["rectselect","ellipseselect","lasso"].includes(state.tool)){
+    if(isRight){ if(pr.selection){ deselect(); render(); } lastSelClick = null; return; }   // right-click removes the selection
     if(rotStart(e)){ drawing = true; editor.setPointerCapture(e.pointerId); return; }
-    if(pr.selection && pr.selection.mask[y*pr.W+x] && selOp(e) === "set" && moveStart(x, y)){
+    const op = selOp(e), now = performance.now(), lc = lastSelClick;
+    lastSelClick = null;
+    if(lc && lc.pid === pr.id && now - lc.t < 400 && Math.abs(lc.x - x) <= 1 && Math.abs(lc.y - y) <= 1){
+      selectCell(x, y, op, lc.base); return;                                              // double-click selects the whole grid cell
+    }
+    if(op === "set" && !e.ctrlKey && resizeStart(e, x, y)){ drawing = true; editor.setPointerCapture(e.pointerId); return; }
+    if(pr.selection && pr.selection.mask[y*pr.W+x] && op === "set" && !e.ctrlKey && moveStart(x, y)){
       drawing = true; editor.setPointerCapture(e.pointerId); return;
     }
-    selDrag = {type: state.tool, op: selOp(e), base: pr.selection && pr.selection.mask, ax: x, ay: y, path: []};
-    updateSel(x, y);
+    selDrag = {type: state.tool, op, base: pr.selection && pr.selection.mask, ax: x, ay: y, path: [], moved: false};
+    updateSel(x, y, e);
     drawing = true; editor.setPointerCapture(e.pointerId); return;
   }
   
@@ -3203,7 +3258,7 @@ function hideCrosshair(){ ["xhDot","xhH","xhV"].forEach(id => document.getElemen
 // Precision Point: follows the raw pointer (clientX/Y), never snapped to pixels or the grid.
 function setCursorState(cls){
   const well = $("#studioCanvasWell");
-  ["cur-move","cur-rotate","cur-locked"].forEach(c => well.classList.toggle(c, c === cls));
+  ["cur-move","cur-rotate","cur-locked","cur-rs-ns","cur-rs-ew","cur-rs-nwse","cur-rs-nesw"].forEach(c => well.classList.toggle(c, c === cls));
 }
 // Picks the system cursor for situations where a precision dot would mislead (zoom, move, rotate, locked layer).
 function cursorStateFor(e){
@@ -3214,10 +3269,15 @@ function cursorStateFor(e){
     const hd = rotHandle(), [fx, fy] = pointerFloat(e);
     if(hd && Math.hypot(fx-hd.x, fy-hd.y) * hd.k <= 10) return "cur-rotate";
     const [x, y] = pointerPos(e);
-    if(pr.selection.mask[y*pr.W+x] && !e.shiftKey && !e.altKey && !e.ctrlKey) return "cur-move";
+    if(!e.shiftKey && !e.altKey && !e.ctrlKey){
+      const rh = resizeHit(e);
+      if(rh && !(curLayer() && curLayer().locked)) return RS_CURSOR[rh];
+      if(pr.selection.mask[y*pr.W+x]) return "cur-move";
+    }
   }
   if(drawing && mv) return "cur-move";
   if(drawing && rot) return "cur-rotate";
+  if(drawing && rs) return RS_CURSOR[rs.h];
   return null;
 }
 function updateCrosshair(e, r){
@@ -3283,8 +3343,10 @@ editor.addEventListener("pointermove", e => {
     rotDrag(e);
   } else if(mv){
     if(e.shiftKey){ const [qx, qy] = snap8(mv.sx, mv.sy, x, y); moveDrag(qx, qy); } else moveDrag(x, y);
+  } else if(rs){
+    resizeDrag(e);
   } else if(selDrag){
-    updateSel(x, y);
+    updateSel(x, y, e);
   } else if(["pencil","eraser","dither","contour","blur"].includes(state.tool)){
     if(settings.pixelPerfect && lastPixel){
       plotLine(lastPixel[0], lastPixel[1], x, y, (lx, ly) => drawSingleStroke(lx, ly, isRightMouseDown));
@@ -3310,14 +3372,20 @@ editor.addEventListener("pointerup", e => {
     shapeStart = null; clearShapePreview();
   }
   if(lastPixel && (state.tool === "pencil" || state.tool === "eraser")) state.lastStrokeEnd = {pid: curProject().id, x: lastPixel[0], y: lastPixel[1]};
-  drawing = false; lastPixel = null; selDrag = null; mv = null; rot = null;
+  if(isSelTool(state.tool)){                                  // remember a click that did not drag, so a second click can become a double-click
+    const p = curProject(), mk = p.selection && p.selection.mask, t = performance.now();
+    lastSelClick = selDrag && !selDrag.moved ? {pid:p.id, t, x:selDrag.ax, y:selDrag.ay, base:selDrag.base}
+      : mv && !mv.base ? {pid:p.id, t, x:mv.sx, y:mv.sy, base:mk}
+      : rs && !rs.base ? {pid:p.id, t, x:rs.sx, y:rs.sy, base:mk} : null;
+  }
+  drawing = false; lastPixel = null; selDrag = null; mv = null; rot = null; rs = null;
   if(moveAuto){ moveAuto = false; deselect(); }
   if(state.tool!=="polygon") { render(); triggerAutoSave(); }
   guard = null;
 });
 
 editor.addEventListener("pointercancel", () => {
-  drawing = false; lastPixel = null; shapeStart = null; selDrag = null; mv = null; rot = null; guard = null;
+  drawing = false; lastPixel = null; shapeStart = null; selDrag = null; mv = null; rot = null; rs = null; guard = null;
 });
 
 // =========================================================
@@ -4268,12 +4336,13 @@ function setBrushSize(s){
   updateContextBar();
 }
 
-// SELECTION MODEL: a per-pixel mask, combined with modifier keys (Shift add, Alt+Shift / right-click subtract, Ctrl+Shift intersect)
+// SELECTION MODEL: a per-pixel mask, combined with modifier keys (Shift add, Alt subtract, Shift+Alt intersect; Shift while dragging = square, Ctrl = from centre)
 const selScratch = document.createElement("canvas");
+function isSelTool(t){ return t === "rectselect" || t === "ellipseselect" || t === "lasso"; }
 function selOp(e){
-  if(e.ctrlKey && e.shiftKey) return "and";
-  if((e.altKey && e.shiftKey) || e.button === 2) return "sub";
-  return e.shiftKey ? "add" : "set";
+  if(e.altKey && e.shiftKey) return "and";   // Shift+Alt: keep only the overlap
+  if(e.altKey) return "sub";                 // Alt: subtract
+  return e.shiftKey ? "add" : "set";         // Shift: add
 }
 function setSelection(mask){
   const pr = curProject(), W = pr.W;
@@ -4299,8 +4368,10 @@ function selectLayerContent(li, fi){
   setSelection(Uint8Array.from({length:pr.W*pr.H}, (_,i) => d[i*4+3] ? 1 : 0));
 }
 // Builds the mask for the shape being dragged (rect / ellipse / lasso) and merges it with the base selection.
-function updateSel(x, y){
+function updateSel(x, y, e){
   const d = selDrag, {W,H} = curProject(), m = new Uint8Array(W*H);
+  if(x !== d.ax || y !== d.ay) d.moved = true;
+  d.lx = x; d.ly = y;
   if(d.type === "lasso"){
     d.path.push([x,y]);
     selScratch.width = W; selScratch.height = H;
@@ -4310,11 +4381,24 @@ function updateSel(x, y){
     for(let i=0;i<m.length;i++) if(a[i*4+3] > 127) m[i] = 1;
     P.forEach((q,i) => { const n = P[(i+1) % P.length]; plotLine(q[0],q[1],n[0],n[1],(px,py) => { m[py*W+px] = 1; }); });
   } else {
-    const x0 = Math.min(d.ax,x), y0 = Math.min(d.ay,y), w = Math.abs(x-d.ax)+1, h = Math.abs(y-d.ay)+1;
-    for(let py=y0; py<y0+h; py++) for(let px=x0; px<x0+w; px++)
+    // Shift: lock to a perfect square / circle. Ctrl: the click point is the centre and the box grows outward from it.
+    let adx = Math.abs(x - d.ax), ady = Math.abs(y - d.ay);
+    if(e && e.shiftKey) adx = ady = Math.max(adx, ady);
+    const sx = x < d.ax ? -1 : 1, sy = y < d.ay ? -1 : 1, ctr = !!(e && e.ctrlKey);
+    const x0 = ctr ? d.ax - adx : Math.min(d.ax, d.ax + sx*adx), x1 = ctr ? d.ax + adx : Math.max(d.ax, d.ax + sx*adx);
+    const y0 = ctr ? d.ay - ady : Math.min(d.ay, d.ay + sy*ady), y1 = ctr ? d.ay + ady : Math.max(d.ay, d.ay + sy*ady);
+    const w = x1 - x0 + 1, h = y1 - y0 + 1;
+    for(let py = Math.max(0, y0); py <= Math.min(H-1, y1); py++) for(let px = Math.max(0, x0); px <= Math.min(W-1, x1); px++)
       if(d.type === "rectselect" || ((px+.5-x0-w/2)/(w/2))**2 + ((py+.5-y0-h/2)/(h/2))**2 <= 1) m[py*W+px] = 1;
   }
   setSelection(combineMask(d.base, m, d.op));
+}
+// Double-click: selects the whole grid cell (grid step) under the pointer, combined with the base selection by the held modifiers.
+function selectCell(x, y, op, base){
+  const {W,H} = curProject(), g = Math.max(1, settings.gridStep | 0), x0 = Math.floor(x/g)*g, y0 = Math.floor(y/g)*g, m = new Uint8Array(W*H);
+  for(let py = y0; py < Math.min(H, y0+g); py++) for(let px = x0; px < Math.min(W, x0+g); px++) m[py*W+px] = 1;
+  setSelection(combineMask(base, m, op));
+  renderCanvasOnly();
 }
 
 // Edit operations on the selection
@@ -4466,6 +4550,74 @@ function rotDrag(e){
   $("#studioStatus").textContent = `ROTATE ${deg}°`;
   renderCanvasOnly();
 }
+
+// Resize: drag an edge or corner of the selection box to scale its pixels (Shift keeps proportions, Ctrl scales from the centre, dragging past the opposite edge flips).
+const RS_CURSOR = {n:"cur-rs-ns", s:"cur-rs-ns", e:"cur-rs-ew", w:"cur-rs-ew", nw:"cur-rs-nwse", se:"cur-rs-nwse", ne:"cur-rs-nesw", sw:"cur-rs-nesw"};
+function resizeHit(e){
+  const pr = curProject(), s = pr.selection;
+  if(!s || !isSelTool(state.tool)) return null;
+  const [fx, fy] = pointerFloat(e), k = editor.getBoundingClientRect().width / pr.W;
+  const tol = Math.min(6 / k, s.w / 3, s.h / 3), x0 = s.x, x1 = s.x + s.w, y0 = s.y, y1 = s.y + s.h;
+  if(fx < x0 - tol || fx > x1 + tol || fy < y0 - tol || fy > y1 + tol) return null;
+  const v = Math.abs(fy - y0) <= tol ? "n" : Math.abs(fy - y1) <= tol ? "s" : "";
+  const h = Math.abs(fx - x0) <= tol ? "w" : Math.abs(fx - x1) <= tol ? "e" : "";
+  return (v + h) || null;
+}
+function resizeStart(e, x, y){
+  const h = resizeHit(e), o = selPixels(); if(!h || !o || o.l.locked) return false;
+  const s = o.s;
+  rs = {h, src: s.floating || grabSelection(), floating: !!s.floating, x0: s.x, y0: s.y, x1: s.x + s.w, y1: s.y + s.h, base: null, sx: x, sy: y, cx: e.clientX, cy: e.clientY};
+  return true;
+}
+function resizeDrag(e){
+  const r = rs, pr = curProject(), l = curLayer(), W = pr.W, H = pr.H, h = r.h, ctr = !!e.ctrlKey;
+  r.cx = e.clientX; r.cy = e.clientY;
+  let [fx, fy] = pointerFloat(e);
+  fx = Math.max(0, Math.min(W, Math.round(fx))); fy = Math.max(0, Math.min(H, Math.round(fy)));
+  const ow = r.x1 - r.x0, oh = r.y1 - r.y0;
+  const mx = h.includes("w") ? -1 : h.includes("e") ? 1 : 0, my = h.includes("n") ? -1 : h.includes("s") ? 1 : 0;
+  const axis = (m, f, a0, a1) => {                            // new [lo, hi] on one axis, and whether the content is flipped
+    if(!m) return [a0, a1, false];
+    const anchor = ctr ? (a0 + a1) / 2 : (m < 0 ? a1 : a0), flip = (f - anchor) * m < 0;
+    return ctr ? [Math.round(anchor - Math.abs(f - anchor)), Math.round(anchor + Math.abs(f - anchor)), flip]
+               : [Math.min(anchor, f), Math.max(anchor, f), flip];
+  };
+  let [nx0, nx1, flipX] = axis(mx, fx, r.x0, r.x1), [ny0, ny1, flipY] = axis(my, fy, r.y0, r.y1);
+  if(e.shiftKey){                                             // keep the original proportions
+    const kx = (nx1 - nx0) / ow, ky = (ny1 - ny0) / oh, sc = mx && my ? Math.max(kx, ky) : mx ? kx : ky;
+    const nw = Math.max(1, Math.round(ow * sc)), nh = Math.max(1, Math.round(oh * sc));
+    const fit = (m, flip, a0, a1, n) => {
+      if(!m || ctr){ const c = Math.round((a0 + a1) / 2 - n / 2); return [c, c + n]; }
+      const anchor = m < 0 ? a1 : a0;
+      return (flip ? -m : m) > 0 ? [anchor, anchor + n] : [anchor - n, anchor];
+    };
+    [nx0, nx1] = fit(mx, flipX, r.x0, r.x1, nw);
+    [ny0, ny1] = fit(my, flipY, r.y0, r.y1, nh);
+  }
+  if(nx1 <= nx0){ if(nx0 >= W) nx0 = W - 1; nx1 = nx0 + 1; }
+  if(ny1 <= ny0){ if(ny0 >= H) ny0 = H - 1; ny1 = ny0 + 1; }
+  if(!r.base && nx0 === r.x0 && nx1 === r.x1 && ny0 === r.y0 && ny1 === r.y1 && !flipX && !flipY) return;
+  const g = l.canvas.getContext("2d",{willReadFrequently:true}), w = nx1 - nx0, hh = ny1 - ny0;
+  if(!r.base){
+    saveHistory();
+    if(!r.floating) erasePx({pr, s: pr.selection, g});
+    r.base = document.createElement("canvas"); r.base.width = W; r.base.height = H;
+    r.base.getContext("2d").drawImage(l.canvas, 0, 0);
+  }
+  const out = remap(r.src, nx0, ny0, w, hh, (u, v) => [(flipX ? w - u : u) / w * r.src.w, (flipY ? hh - v : v) / hh * r.src.h]);
+  g.clearRect(0, 0, W, H); g.drawImage(r.base, 0, 0);
+  if(!r.floating) g.drawImage(out.canvas, out.x, out.y);
+  setSelection(maskAt(out, out.x, out.y));
+  if(r.floating && pr.selection) pr.selection.floating = out;
+  $("#studioStatus").textContent = `RESIZE ${w}×${hh}`;
+  renderCanvasOnly();
+}
+// Pressing or releasing Shift / Ctrl mid-drag updates the shape or resize right away, without waiting for the mouse to move.
+["keydown","keyup"].forEach(t => window.addEventListener(t, e => {
+  if(e.key !== "Shift" && e.key !== "Control") return;
+  if(rs && rs.cx !== undefined) resizeDrag({clientX: rs.cx, clientY: rs.cy, shiftKey: e.shiftKey, ctrlKey: e.ctrlKey});
+  else if(selDrag && selDrag.type !== "lasso" && selDrag.lx !== undefined) updateSel(selDrag.lx, selDrag.ly, e);
+}));
 
 // Dragging inside a selection moves its pixels (a cut selection drops its floating pixels where released)
 let mv = null;
@@ -5253,6 +5405,26 @@ function moveLayer(delta){
 // =========================================================
 // TOOL SELECTION & SHORTCUTS
 // =========================================================
+
+// Toolbar icons: every tool has its own silhouette. The grouped buttons show the sub-tool you used last:
+// Marquee -> rectangle / ellipse / lasso, More Shapes -> ellipse / polygon.
+const SUBTOOL_ICONS = {
+  rectselect:    {title: "Marquee: Rectangle (M)  -  Shift+M ellipse, Q lasso", svg: '<rect x="3" y="3" width="14" height="14" rx="1" stroke-dasharray="3 2.5"/><path d="M13 13l8 3-3.5 1.5L16 21z" fill="currentColor" stroke-width="1.2"/>'},
+  ellipseselect: {title: "Marquee: Ellipse (Shift+M)  -  M rectangle, Q lasso", svg: '<ellipse cx="10" cy="10" rx="7.5" ry="6" stroke-dasharray="3 2.5"/><path d="M13 13l8 3-3.5 1.5L16 21z" fill="currentColor" stroke-width="1.2"/>'},
+  lasso:         {title: "Marquee: Lasso (Q)  -  M rectangle, Shift+M ellipse", svg: '<path d="M4.5 10c-.5-4 3.5-6.5 8-5.5s6.5 4.5 3 7.5-8.500 2.500-11-2z" stroke-dasharray="3 2.5"/><path d="M8.500 15c.2 2.800-.8 4.300-3 5.500"/><circle cx="5.500" cy="20.500" r="1.200" fill="currentColor" stroke="none"/>'},
+  ellipse:       {title: "More Shapes: Ellipse (Shift+U)  -  P polygon", svg: '<ellipse cx="12" cy="12" rx="9" ry="6"/>'},
+  polygon:       {title: "More Shapes: Polygon (P)  -  Shift+U ellipse", svg: '<path d="M12 3l8.500 6.200-3.200 10H6.700L3.500 9.200z"/>'}
+};
+function updateToolIcons(){
+  const set = (tool, key) => {
+    const btn = document.querySelector('.tool[data-tool="' + tool + '"]'), def = SUBTOOL_ICONS[key];
+    if(!btn || !def || btn.dataset.iconKey === key) return;
+    btn.dataset.iconKey = key; btn.title = def.title;
+    btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24">' + def.svg + '</svg>';
+  };
+  set("select", state.lastSelectTool && SUBTOOL_ICONS[state.lastSelectTool] ? state.lastSelectTool : "rectselect");
+  set("shape", state.lastShapeTool === "polygon" ? "polygon" : "ellipse");
+}
 function setTool(toolName){
   if(["rectselect", "ellipseselect", "lasso"].includes(toolName)) state.lastSelectTool = toolName;
   if(["line", "rect", "ellipse", "polygon"].includes(toolName)) state.lastShapeTool = toolName;
@@ -5260,6 +5432,7 @@ function setTool(toolName){
   state.tool = toolName;
   if(toolName!=="polygon"){ polygonPoints=[]; $("#polygonStatus").textContent=""; clearShapePreview(); }
   
+  updateToolIcons();
   const isSelect = ["rectselect", "ellipseselect", "lasso"].includes(toolName);
   const isShape = ["line", "rect", "ellipse", "polygon"].includes(toolName);
   $$(".tool").forEach(b => {
@@ -5556,7 +5729,7 @@ document.addEventListener("keydown", e => {
   }
   if(e.key === "Alt"){
     e.preventDefault();
-    if(!e.repeat && !e.shiftKey && !e.ctrlKey) pressAltEyedropper();
+    if(!e.repeat && !e.shiftKey && !e.ctrlKey && !isSelTool(state.tool)) pressAltEyedropper();   // marquee tools use Alt to subtract
     return;
   }
   if(e.key === "Shift" && altEyedropperActive){ releaseAltEyedropper(); return; } // Alt+Shift = subtract, not picker
@@ -7820,7 +7993,7 @@ $$(".studio-pal-tab").forEach(btn => {
 
 // MARCHING ANTS ANIMATION LOOP
 setInterval(() => {
-  if(curProject().selection){
+  if(!document.hidden && curProject().selection){
     antsOffset = (antsOffset + 1) % 8;
     renderSelection();
   }
@@ -7947,7 +8120,7 @@ function setupEntryDialog(){
 // =========================================================
 // IN-APP DOCUMENTATION (Help button / ? key)
 // =========================================================
-const APP_VERSION = "6.24";
+const APP_VERSION = "6.26";
 (function setupDocs(){
   const body = $("#docsBody"), list = $("#docsNavList"), search = $("#docsSearch");
   const secs = [...body.querySelectorAll(".doc-sec")];
